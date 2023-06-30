@@ -1,0 +1,5 @@
+venv
+__pytest__
+__pycache__
+.pytest_cache
+*.sqlite3
