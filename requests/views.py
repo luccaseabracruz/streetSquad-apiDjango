@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
+from .serializers import RequestSerializer
+from .models import Request
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-# Create your views here.
+
+class RequestView(generics.ListCreateAPIView, PageNumberPagination):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
+
+
+class RequestDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
