@@ -9,3 +9,6 @@ class User(AbstractUser):
     is_seller = models.BooleanField(null=True, default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __repr__(self) -> str:
+        return f"<User ({self.id})-({self.full_name})>"
