@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Request
+from products.serializers import ProductSerializer
 
 
 class RequestSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateTimeField(read_only=True)
-    updated_at = serializers.DateTimeField(read_only=True)
+    products = ProductSerializer(read_only=True)
 
     class Meta:
         model = Request
@@ -14,4 +14,6 @@ class RequestSerializer(serializers.ModelSerializer):
             "product_quantily",
             "created_at",
             "updated_at",
+            "products",
         ]
+        read_only_fields = ["id", "status", "created_at", "updated_at"]

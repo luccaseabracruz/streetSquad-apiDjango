@@ -9,7 +9,7 @@ from .permissions import IsCartOwner
 # Create your views here.
 class CartView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminUser, IsCartOwner]
+    permission_classes = [IsAdminUser | IsCartOwner]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
