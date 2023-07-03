@@ -15,6 +15,13 @@ class Request(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     product_quantily = models.IntegerField()
 
-    products = models.ManyToManyField("products.Product", related_name="requests")
-    
-    buyer = models.ManyToOneRel("users.User", related_name="requests")
+    products = models.ManyToManyField(
+        "products.Product",
+        related_name="requests"
+    )
+
+    buyer = models.ForeignKey(
+        "users.User",
+        related_name="requests",
+        on_delete=models.CASCADE
+    )
