@@ -5,21 +5,6 @@ from django.core.validators import RegexValidator, EmailValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data: dict):
-        if validated_data.is_superuser:
-            return User.objects.create_superuser(**validated_data)
-        return User.objects.create_user(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            if key == 'password':
-                instance.set_password(value)
-            else:
-                setattr(instance, key, value)
-
-        instance.save()
-        return instance
-    
     class Meta:
         model = User
         fields = [
@@ -38,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'created_at',
             'updated_at',
+            'is_superuser',
         ]
         extra_kwargs = {
             'password': {
@@ -69,6 +55,17 @@ class UserSerializer(serializers.ModelSerializer):
                 ]
             },
             'is_seller': {'required': False},
-            'is_superuser': {'required': False}
         }
 
+    def create(self, validated_data: dict):
+        return User.objects.create_user(**validated_data)
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            if key == 'password':
+                instance.set_password(value)
+            else:
+                setattr(instance, key, value)
+
+        instance.save()
+        return instance
