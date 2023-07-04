@@ -6,6 +6,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAdminUser
 from users.permissions import IsAccountOwner
 from .permissions import IsAddressOwner
+from django.db import IntegrityError
+from rest_framework.views import Response, status
 
 
 class CreateAddressView(generics.CreateAPIView):
@@ -16,10 +18,17 @@ class CreateAddressView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.kwargs.get(self.lookup_field))
+        # try:
+        #     serializer.save(user_id=self.kwargs.get(self.lookup_field))
+        # except IntegrityError as error:
+        #     error_message = str(error)
+        #     return Response(data={
+        #         "error": error_message},
+        #         status=status.HTTP_409_CONFLICT
+        #     )
 
 
 class AddressDetailView(generics.RetrieveUpdateDestroyAPIView):
-
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAdminUser | IsAddressOwner]
     queryset = Address.objects.all()
