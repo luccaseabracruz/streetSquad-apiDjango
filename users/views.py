@@ -20,6 +20,7 @@ class ListUsersView(ListAPIView):
 
 
 class UserDetailView(RetrieveUpdateDestroyAPIView):
+    
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAdminUser | IsAccountOwner]
     queryset = User.objects.all()

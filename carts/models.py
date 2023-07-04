@@ -3,13 +3,11 @@ from django.db import models
 
 # Create your models here.
 class Cart(models.Model):
-    user = models.ForeignKey(
+    user = models.ManyToManyField(
         "users.User",
-        on_delete=models.CASCADE,
-        related_name="cart"
+        related_name="user"
     )
-    product = models.ForeignKey(
+    product = models.ManyToManyField(
         "products.Product",
-        on_delete=models.CASCADE,
         related_name="product"
     )
