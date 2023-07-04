@@ -3,11 +3,14 @@ from django.db import models
 
 # Create your models here.
 class Cart(models.Model):
-    user = models.ManyToManyField(
+    user = models.ForeignKey(
         "users.User",
+        on_delete=models.CASCADE,
         related_name="user"
     )
-    product = models.ManyToManyField(
+    product = models.ForeignKey(
         "products.Product",
+        on_delete=models.CASCADE,
         related_name="product"
     )
+    quantity = models.IntegerField()
