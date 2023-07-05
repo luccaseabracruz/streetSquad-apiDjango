@@ -26,6 +26,9 @@ class RequestDetailsView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     lookup_field = "product_id"
-
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
+
+
+class RequestBySeller(generics.ListAPIView):
+    ...
