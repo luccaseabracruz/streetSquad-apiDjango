@@ -33,5 +33,4 @@ class ProductBySeller(generics.ListAPIView):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
-        user_id = self.kwargs['pk']
-        return Product.objects.filter(user=user_id)
+        return Product.objects.filter(user=self.request.user)

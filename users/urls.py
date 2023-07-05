@@ -3,6 +3,7 @@ from users import views as users_views
 from addresses import views as addresses_views
 from rest_framework_simplejwt import views as jwt_views
 from products import views as products_views
+from requests.views import RequestBySeller
 
 
 urlpatterns = [
@@ -19,7 +20,11 @@ urlpatterns = [
         addresses_views.AddressDetailView.as_view()
     ),
     path(
-        "users/<int:pk>/products/",
+        "users/products/",
         products_views.ProductBySeller.as_view()
+    ),
+    path(
+        "users/sales/",
+        RequestBySeller.as_view()
     ),
 ]
