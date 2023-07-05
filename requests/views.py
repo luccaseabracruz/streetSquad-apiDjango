@@ -17,7 +17,7 @@ class RequestView(generics.ListCreateAPIView, PageNumberPagination):
 
     def perform_create(self, serializer):
         product_id = self.request.data.get('product')
-        serializer.save(buyer=self.request.user, product=product_id)
+        serializer.save(buyer=self.request.user, product=int(product_id))
         stock_quantity = Product.objects.filter(id=1)
         print(stock_quantity)
 

@@ -10,17 +10,25 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("addresses", "0001_initial"),
+        ("products", "0002_initial"),
+        ("requests", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="address",
-            name="user",
-            field=models.OneToOneField(
+            model_name="request",
+            name="buyer",
+            field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name="address",
+                related_name="requests",
                 to=settings.AUTH_USER_MODEL,
+            ),
+        ),
+        migrations.AddField(
+            model_name="request",
+            name="products",
+            field=models.ManyToManyField(
+                related_name="requests", to="products.product"
             ),
         ),
     ]
