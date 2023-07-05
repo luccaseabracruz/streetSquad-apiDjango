@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Address
 from users.serializers import UserSerializer
+from .exceptions import VerifyAddress
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -22,3 +23,18 @@ class AddressSerializer(serializers.ModelSerializer):
             'id',
             'user',
         ]
+
+    # def create(self, validated_data):
+    #     user = validated_data["user"]
+    #     if hasattr(user, "address"):
+    #         import ipdb; ipdb.set_trace()
+    #         raise VerifyAddress()
+
+    #     return Address.objects.create(**validated_data)
+
+    def create(self, validated_data):
+        user = validated_data["user"]
+        if hasattr(user, "address"):
+            raise VerifyAddress()
+        
+        return super().create(validated_data)
