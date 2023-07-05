@@ -4,7 +4,6 @@ from products.serializers import ProductSerializer
 
 
 class RequestSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(read_only=True)
 
     class Meta:
         model = Request
@@ -14,6 +13,6 @@ class RequestSerializer(serializers.ModelSerializer):
             "product_quantily",
             "created_at",
             "updated_at",
-            "products",
+            "product",
         ]
         read_only_fields = ["id", "status", "created_at", "updated_at"]
