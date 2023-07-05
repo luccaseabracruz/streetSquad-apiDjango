@@ -16,8 +16,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="cart",
             name="user",
-            field=models.ManyToManyField(
-                related_name="user", to=settings.AUTH_USER_MODEL
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user",
+                to=settings.AUTH_USER_MODEL,
             ),
         ),
     ]
