@@ -2,26 +2,26 @@ from django.shortcuts import render
 from .models import User
 from .serializers import UserSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
-from .permissions import IsAccountOwner
+from .permissions import IsAccountOwnerOrAdmin
 
 
-class CreateUserView(CreateAPIView):
+class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class ListUsersView(ListAPIView):
+class ListUsersView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class UserDetailView(RetrieveUpdateDestroyAPIView):
-    
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminUser | IsAccountOwner]
+    permission_classes = [IsAccountOwnerOrAdmin]
     queryset = User.objects.all()
     serializer_class = UserSerializer
