@@ -2,6 +2,8 @@ from django.urls import path
 from users import views as users_views
 from addresses import views as addresses_views
 from rest_framework_simplejwt import views as jwt_views
+from products import views as products_views
+
 
 urlpatterns = [
     path("users/", users_views.CreateUserView.as_view()),
@@ -15,5 +17,9 @@ urlpatterns = [
     path(
         "users/<int:pk>/addresses/",
         addresses_views.AddressDetailView.as_view()
+    ),
+    path(
+        "users/<int:pk>/products/",
+        products_views.ProductBySeller.as_view()
     ),
 ]
