@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Product
-from users.serializers import UserSerializer
+from users.serializers import ResponseUserSerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    seller = ResponseUserSerializer(read_only=True, source="user")
 
     class Meta:
         model = Product
@@ -17,9 +17,18 @@ class ProductSerializer(serializers.ModelSerializer):
             "updated_at",
             "category",
             "image_url",
+            "seller"
+        ]
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "seller",
+        ]
+
+        write_only_fields = [
             "user"
         ]
-        read_only_fields = ["id",  "created_at", "updated_at"]
 
     def create(self, validated_data):
         return Product.objects.create(**validated_data)

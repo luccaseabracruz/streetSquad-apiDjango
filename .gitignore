@@ -1,4 +1,5 @@
 venv
+lib
 __pytest__
 __pycache__
 .pytest_cache
