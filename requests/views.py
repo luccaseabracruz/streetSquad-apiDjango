@@ -6,6 +6,7 @@ from .serializers import RequestSerializer
 from .models import Request
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from products.permissions import IsSellerOwnerOrAdmin
 
 
 class RequestView(generics.ListCreateAPIView, PageNumberPagination):
@@ -31,4 +32,18 @@ class RequestDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class RequestBySeller(generics.ListAPIView):
-    ...
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSellerOwnerOrAdmin]
+    serializer_class = RequestSerializer
+
+    def get_queryset(self):
+        return Request.objects.filter(product__user=self.request.user)
+
+
+class RequestsBybuier(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = RequestSerializer
+
+    def get_queryset(self):
+        return Request.objects.filter(buyer=self.request.user)
