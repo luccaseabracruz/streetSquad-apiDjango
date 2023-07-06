@@ -1,6 +1,7 @@
 from rest_framework import generics
 from .serializers import RequestSerializer
 from .models import Request
+from carts.models import Cart
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from products.permissions import IsSellerOwnerOrAdmin
@@ -15,6 +16,13 @@ class RequestView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(buyer=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        #import ipdb; ipdb.set_trace()
+        user_id = request.user.id
+        cart = Cart.objects.filter(id=user_id).values()
+        print(cart)
+        return super().post(request, *args, **kwargs)    
 
 
 class RequestDetailsView(generics.RetrieveUpdateAPIView):

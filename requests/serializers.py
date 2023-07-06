@@ -1,9 +1,23 @@
 from rest_framework import serializers
 from .models import Request
-from products.serializers import ProductSerializer
+
+
+class ResponseOrderDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Request
+        fields = [
+            "status",
+            "product_quantity",
+            "created_at",
+            "updated_at",
+            "product",
+        ]
+        read_only_fields = ["created_at", "updated_at", "status"]
 
 
 class RequestSerializer(serializers.ModelSerializer):
+    order_data = ResponseOrderDataSerializer(read_only=True, many=True)
+
     class Meta:
         model = Request
         fields = [
@@ -13,14 +27,10 @@ class RequestSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
             "product",
+            "order_data",
         ]
-        read_only_fields = ["created_at", "updated_at"]
 
-    def create(self, validated_data):
-        stock_quantity = validated_data["product"].stock_quantity
-        product_quantily = validated_data["product_quantily"]
+        read_only_fields = ["id", "created_at", "updated_at", "order_data"]
 
-        validated_data["product"].stock_quantity = stock_quantity - product_quantily
-        validated_data["product"].save()
-        
-        return Request.objects.create(**validated_data)
+        write_only_fields = ["product_quantily", "product"]
+
