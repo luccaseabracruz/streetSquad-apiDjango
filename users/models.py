@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(max_length=70, unique=True)
+    password = models.CharField(max_length=120)
     contact = models.CharField(max_length=20)
     full_name = models.CharField(max_length=120)
     is_seller = models.BooleanField(null=True, default=False)
