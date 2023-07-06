@@ -26,3 +26,10 @@ class CartListView(generics.ListAPIView):
     def get_queryset(self):
         cart = Cart.objects.get(user=self.request.user)
         return CartProducts.objects.filter(cart=cart)
+
+
+class CartRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = CartProducts.objects.all()
+    serializer_class = CartProductsSerializer

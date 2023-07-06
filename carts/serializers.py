@@ -25,9 +25,10 @@ class CartProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartProducts
         fields = ["id", "cart", "quantity", "product"]
-        extra_kwargs = {'quantity': {'required': True}} 
+        extra_kwargs = {'quantity': {'required': True}}
 
     def create(self, validated_data):
+        Cart.objects.get_or_create(user=self.context["request"].user)
         cart = Cart.objects.get(user=self.context["request"].user)
         product = Product.objects.get(id=self.context.get('view').kwargs.get('pk'))
         quantity = validated_data.get('quantity')
