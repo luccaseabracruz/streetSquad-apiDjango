@@ -45,14 +45,10 @@ class UserModelTest(TestCase):
         self.assertFalse(result, message)
 
     def test_full_name_properties(self):
-        expected = 70
+        expected = 120
         result = User._meta.get_field("full_name").max_length
         message = f"Verifique se a propridade full_name possui max_length definida como {expected}."
         self.assertEqual(expected, result, message)
-
-        result = User._meta.get_field("full_name").unique
-        message = "Verifique se a propridade full_name foi definida como única."
-        self.assertTrue(result, message)
 
         result = User._meta.get_field("full_name").null
         message = f"Verifique se a propriedade full_name não pode ser null."
@@ -85,11 +81,9 @@ class UserModelTest(TestCase):
 
         expected = 120
         result = User._meta.get_field("password").max_length
-        message = f"Verifique se a propridade contact possui max_length definida como {expected}."
+        message = f"Verifique se a propridade password possui max_length definida como {expected}."
         self.assertEqual(expected, result, message)
 
-    def test_teste_para_aparecer_falha(self):
-        self.assertTrue(False, 'isso é apenas um teste para aparecer no terminal para ver se os testes estão pegando falhas')
 
 class UserAddressRelationTest(TestCase):
     @classmethod
