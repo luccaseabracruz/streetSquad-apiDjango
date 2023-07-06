@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -16,8 +17,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="cart",
             name="user",
-            field=models.ManyToManyField(
-                related_name="user", to=settings.AUTH_USER_MODEL
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user",
+                to=settings.AUTH_USER_MODEL,
             ),
         ),
     ]

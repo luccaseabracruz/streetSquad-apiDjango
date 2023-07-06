@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("quantity", models.IntegerField()),
             ],
         ),
     ]
