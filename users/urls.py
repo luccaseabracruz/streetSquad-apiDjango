@@ -4,6 +4,7 @@ from addresses import views as addresses_views
 from rest_framework_simplejwt import views as jwt_views
 from products import views as products_views
 from requests.views import RequestBySeller
+from carts.views import CartListView, CartRetrieveUpdateDestroyView
 
 
 urlpatterns = [
@@ -27,4 +28,6 @@ urlpatterns = [
         "users/sales/",
         RequestBySeller.as_view()
     ),
+    path("users/mycart/", CartListView.as_view()),
+    path("users/mycart/<int:pk>/", CartRetrieveUpdateDestroyView.as_view())
 ]
