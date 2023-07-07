@@ -1,26 +1,56 @@
 from rest_framework import serializers
-from .models import Request
+from carts.models import Cart, CartProducts
+
 from products.serializers import ProductSerializer
+from users.models import User
+from .models import Request, RequestProducts
 
 
-class RequestSerializer(serializers.ModelSerializer):
+class ResponseOrderDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = [
-            "id",
-            "status",
-            "product_quantily",
+            "product_quantity",
             "created_at",
             "updated_at",
             "product",
         ]
-        read_only_fields = ["created_at", "updated_at"]
+        read_only_fields = ["created_at", "updated_at", "status"]
+
+
+class RequestProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    """ request = RequestSerializer() """
+
+    class Meta:
+        model = RequestProducts
+        fields = ["id", "quantity", "product", "request", "seller"]
+
+        read_only_fields = ["id", "quantity", "product", "request"]
+
+
+class RequestSerializer(serializers.ModelSerializer):
+    product = RequestProductSerializer(
+        read_only=True, many=True, source="requestproducts_set"
+    )
+
+    class Meta:
+        model = Request
+        fields = ["id", "status", "created_at", "updated_at", "product", "seller"]
+
+        read_only_fields = ["id", "created_at", "updated_at", "order_data"]
 
     def create(self, validated_data):
-        stock_quantity = validated_data["product"].stock_quantity
-        product_quantily = validated_data["product_quantily"]
+        cart = Cart.objects.filter(user_id=validated_data["buyer"].id).first()
+        carts_products = CartProducts.objects.filter(cart=cart)
 
-        validated_data["product"].stock_quantity = stock_quantity - product_quantily
-        validated_data["product"].save()
-        
-        return Request.objects.create(**validated_data)
+        for product in carts_products:
+            request = Request.objects.create(**validated_data, seller=product.seller)
+
+            RequestProducts.objects.create(
+                request=request,
+                quantity=product.quantity,
+                product=product.product,
+                seller=product.seller,
+            )
+        return request
