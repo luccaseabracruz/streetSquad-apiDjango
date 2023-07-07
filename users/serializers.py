@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import User
 from rest_framework.validators import UniqueValidator
 from django.core.validators import RegexValidator, EmailValidator
+from carts.models import Cart
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,7 +59,9 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data: dict):
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        Cart.objects.create(user=user)
+        return user
 
     def update(self, instance, validated_data):
         for key, value in validated_data.items():

@@ -1,12 +1,9 @@
-from .serializers import CartSerializer, CartProductsSerializer
+from .serializers import CartProductsSerializer
 from .models import Cart, CartProducts
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .permissions import IsCartOwner
-from products.models import Product
-from django.shortcuts import get_object_or_404
-import ipdb
 
 
 # Create your views here.
@@ -30,6 +27,6 @@ class CartListView(generics.ListAPIView):
 
 class CartRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsCartOwner]
     queryset = CartProducts.objects.all()
     serializer_class = CartProductsSerializer
