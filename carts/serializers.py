@@ -21,8 +21,8 @@ class CartProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartProducts
-        fields = ["id", "cart", "quantity", "product", "total"]
-        extra_kwargs = {"quantity": {"required": True}}
+        fields = ["id", "cart", "quantity", "product", "seller", "total"]
+        extra_kwargs = {'quantity': {'required': True}}
 
     def get_total(self, obj):
         return obj.quantity * obj.product.price
@@ -37,11 +37,9 @@ class CartProductsSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         Cart.objects.get_or_create(user=self.context["request"].user)
         cart = Cart.objects.get(user=self.context["request"].user)
-        product = Product.objects.get(id=self.context.get("view").kwargs.get("pk"))
-        quantity = validated_data.get("quantity")
-
-        self.check_stock_quantity(product.stock_quantity, quantity)
-
+        product = Product.objects.get(id=self.context.get('view').kwargs.get('pk'))
+        quantity = validated_data.get('quantity')
+        seller = product.user.id
         try:
             cart_product = CartProducts.objects.get(cart=cart, product=product)
             self.check_stock_quantity(product.stock_quantity, quantity, cart_product.quantity)
@@ -49,7 +47,7 @@ class CartProductsSerializer(serializers.ModelSerializer):
             cart_product.save()
         except CartProducts.DoesNotExist:
             cart_product = CartProducts.objects.create(
-                cart=cart, product=product, quantity=quantity
+                cart=cart, product=product, quantity=quantity, seller=seller
             )
         # serializer = self.__class__(instance=cart_product)
         return cart_product
