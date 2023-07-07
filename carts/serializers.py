@@ -3,6 +3,7 @@ from .models import Cart, CartProducts
 from users.serializers import ResponseUserSerializer
 from products.serializers import ProductSerializer
 from products.models import Product
+from django.db.models import Sum
 
 
 class CartSerializer(serializers.ModelSerializer):
