@@ -19,3 +19,4 @@ class CartProducts(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1, null=True)
+    seller = models.IntegerField(default=None,null=True)

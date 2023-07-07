@@ -1,12 +1,15 @@
 from rest_framework import serializers
-from .models import Request
+from carts.models import Cart, CartProducts
+
+from products.serializers import ProductSerializer
+from users.models import User
+from .models import Request, RequestProducts
 
 
 class ResponseOrderDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = [
-            "status",
             "product_quantity",
             "created_at",
             "updated_at",
@@ -15,22 +18,39 @@ class ResponseOrderDataSerializer(serializers.ModelSerializer):
         read_only_fields = ["created_at", "updated_at", "status"]
 
 
+class RequestProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    """ request = RequestSerializer() """
+
+    class Meta:
+        model = RequestProducts
+        fields = ["id", "quantity", "product", "request", "seller"]
+
+        read_only_fields = ["id", "quantity", "product", "request"]
+
+
 class RequestSerializer(serializers.ModelSerializer):
-    order_data = ResponseOrderDataSerializer(read_only=True, many=True)
+    product = RequestProductSerializer(
+        read_only=True, many=True, source="requestproducts_set"
+    )
 
     class Meta:
         model = Request
-        fields = [
-            "id",
-            "status",
-            "product_quantily",
-            "created_at",
-            "updated_at",
-            "product",
-            "order_data",
-        ]
+        fields = ["id", "status", "created_at", "updated_at", "product", "seller"]
 
         read_only_fields = ["id", "created_at", "updated_at", "order_data"]
 
-        write_only_fields = ["product_quantily", "product"]
+    def create(self, validated_data):
+        cart = Cart.objects.filter(user_id=validated_data["buyer"].id).first()
+        carts_products = CartProducts.objects.filter(cart=cart)
 
+        for product in carts_products:
+            request = Request.objects.create(**validated_data, seller=product.seller)
+
+            RequestProducts.objects.create(
+                request=request,
+                quantity=product.quantity,
+                product=product.product,
+                seller=product.seller,
+            )
+        return request
