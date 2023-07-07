@@ -32,8 +32,7 @@ class CartProductsSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'detail': 'A quantidade solicitada não está disponível em estoque'})
         if cart_quantity:
             if cart_quantity + request_quantity > stock_quantity:
-                raise serializers.ValidationError({'detail': 'A quantidade solicitada não está disponível em estoque'})
-
+                raise serializers.ValidationError({'detail': 'A quantidade solicitada somada à quantidade em seu carrinho não está disponível em estoque'})
 
     def create(self, validated_data):
         Cart.objects.get_or_create(user=self.context["request"].user)
