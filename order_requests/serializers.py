@@ -55,7 +55,6 @@ class RequestSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.status = "concluido"
         instance.save()
-            
         send_mail(
             subject="Atualização do pedido",
             message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{instance.id} foi concluído com sucesso.",
