@@ -32,7 +32,7 @@ class Request(models.Model):
 
 
 class RequestProducts(models.Model):
-    request = models.ForeignKey("requests.Request", on_delete=models.CASCADE)
+    request = models.ForeignKey("order_requests.Request", on_delete=models.CASCADE)
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1, null=True)
     seller = models.IntegerField(default=None, null=True)

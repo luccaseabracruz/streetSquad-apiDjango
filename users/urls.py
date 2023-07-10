@@ -3,7 +3,7 @@ from users import views as users_views
 from addresses import views as addresses_views
 from rest_framework_simplejwt import views as jwt_views
 from products import views as products_views
-from requests.views import RequestBySeller
+from order_requests.views import RequestBySeller, RequestsBybuier
 from carts.views import CartListView, CartRetrieveUpdateDestroyView
 
 
@@ -23,6 +23,10 @@ urlpatterns = [
     path(
         "users/products/",
         products_views.ProductBySeller.as_view()
+    ),
+    path(
+        "users/orders/",
+        RequestsBybuier.as_view()
     ),
     path(
         "users/sales/",

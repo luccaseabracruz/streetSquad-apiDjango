@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from carts.models import Cart, CartProducts
-
 from products.serializers import ProductSerializer
 from users.models import User
 from .models import Request, RequestProducts
+import ipdb
 
 
 class ResponseOrderDataSerializer(serializers.ModelSerializer):
@@ -44,13 +44,23 @@ class RequestSerializer(serializers.ModelSerializer):
         cart = Cart.objects.filter(user_id=validated_data["buyer"].id).first()
         carts_products = CartProducts.objects.filter(cart=cart)
 
-        for product in carts_products:
-            request = Request.objects.create(**validated_data, seller=product.seller)
+        seller_orders = {}
 
-            RequestProducts.objects.create(
-                request=request,
-                quantity=product.quantity,
-                product=product.product,
-                seller=product.seller,
-            )
+        for item in carts_products:
+            seller_id = item.seller
+            if seller_id in seller_orders:
+                seller_orders[seller_id].append(item)
+            else:
+                seller_orders[seller_id] = [item]
+
+        for seller_id, products in seller_orders.items():
+            request = Request.objects.create(**validated_data, seller=seller_id)
+
+            for product in products:
+                RequestProducts.objects.create(
+                    request=request,
+                    quantity=product.quantity,
+                    product=product.product,
+                    seller=product.seller,
+                 )
         return request
