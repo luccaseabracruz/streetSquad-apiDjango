@@ -1,7 +1,7 @@
 from django.test import TestCase
 from users.models import User
 from addresses.models import Address
-from requests.models import Request
+from order_requests.models import Request
 from products.models import Product
 
 
