@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('quantity', models.IntegerField(default=1, null=True)),
                 ('seller', models.IntegerField(default=None, null=True)),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product')),
-                ('request', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='requests.request')),
+                ('request', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='order_requests.request')),
             ],
         ),
     ]
