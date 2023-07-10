@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('requests', '0001_initial'),
+        ('order_requests', '0001_initial'),
         ('products', '0002_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='request',
             name='product',
-            field=models.ManyToManyField(related_name='requests', through='requests.RequestProducts', to='products.product'),
+            field=models.ManyToManyField(related_name='requests', through='order_requests.RequestProducts', to='products.product'),
         ),
     ]

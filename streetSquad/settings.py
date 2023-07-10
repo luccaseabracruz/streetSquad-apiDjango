@@ -45,13 +45,17 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework", "rest_framework_simplejwt"]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "drf_spectacular"
+]
 
 MY_APPS = [
     "addresses",
     "carts",
     "products",
-    "requests",
+    "order_requests",
     "users",
 ]
 
@@ -152,3 +156,14 @@ EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Street Squad API",
+    "DESCRIPTION": "API RESTfull do e-commerce da loja virtual de roupas Street Squad.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False
+}

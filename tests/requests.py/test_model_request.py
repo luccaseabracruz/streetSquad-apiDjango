@@ -1,5 +1,5 @@
 from django.test import TestCase
-from requests.models import Request
+from order_requests.models import Request
 
 
 class RequestModelTest(TestCase):
