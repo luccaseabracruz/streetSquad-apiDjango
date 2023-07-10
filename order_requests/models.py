@@ -20,7 +20,6 @@ class Request(models.Model):
         related_name="requests",
         through='RequestProducts'
     )
-    """ alterar product(s) """
 
     buyer = models.ForeignKey(
         "users.User",
