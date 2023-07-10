@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from carts.models import Cart, CartProducts
 from products.serializers import ProductSerializer
-from users.models import User
 from .models import Request, RequestProducts
 from django.core.mail import send_mail
 from django.conf import settings
@@ -54,16 +53,15 @@ class RequestSerializer(serializers.ModelSerializer):
         return request
 
     def update(self, instance, validated_data):
-        request_id = self.context.get("view").kwargs.get("pk")
-        items = Request.objects.filter(buyer_id=request_id)
-        for item in items:
-            item.status = "concluido"
-            item.save()
-            send_mail(
-                subject="Atualização do pedido",
-                message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{item.id} foi concluído com sucesso.",
-                recipient_list=[instance.buyer.email],
-                from_email=settings.EMAIL_HOST_USER,
-                fail_silently=False
-            )
-        return super().update(instance, validated_data)
+        instance.status = "concluido"
+        instance.save()
+            
+        send_mail(
+            subject="Atualização do pedido",
+            message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{instance.id} foi concluído com sucesso.",
+            recipient_list=[instance.buyer.email],
+            from_email=settings.EMAIL_HOST_USER,
+            fail_silently=False,
+        )
+
+        return instance
