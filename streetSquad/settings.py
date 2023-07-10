@@ -42,14 +42,15 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "rest_framework_simplejwt"
+    "rest_framework_simplejwt",
+    "drf_spectacular"
 ]
 
 MY_APPS = [
     "addresses",
     "carts",
     "products",
-    "requests",
+    "order_requests",
     "users",
 ]
 
@@ -142,4 +143,15 @@ AUTH_USER_MODEL = 'users.User'
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Street Squad API",
+    "DESCRIPTION": "API RESTfull do e-commerce da loja virtual de roupas Street Squad.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False
 }
