@@ -1,28 +1,36 @@
 from rest_framework import generics
 from .serializers import RequestSerializer
 from .models import Request
-from users.models import User
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly,
+    IsAuthenticated,
+    IsAdminUser,
+)
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from products.permissions import IsSellerOwnerOrAdmin
 from .permissions import IsOrderOwnerOrAdmin
 
 
+class RequestAllView(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdminUser]
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
+
 
 class RequestView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
-   
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
-    
+
     def perform_create(self, serializer):
         serializer.save(buyer=self.request.user)
+
 
 class RequestDetailsView(generics.RetrieveUpdateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsOrderOwnerOrAdmin]
-    
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
 
