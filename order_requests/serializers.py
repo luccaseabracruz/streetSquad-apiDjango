@@ -61,7 +61,7 @@ class RequestSerializer(serializers.ModelSerializer):
             item.save()
             send_mail(
                 subject="Atualização do pedido",
-                message=f"Olá, {instance.buyer.full_name}! Seu pedido foi concluído com sucesso.",
+                message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{item.id} foi concluído com sucesso.",
                 recipient_list=[instance.buyer.email],
                 from_email=settings.EMAIL_HOST_USER,
                 fail_silently=False
