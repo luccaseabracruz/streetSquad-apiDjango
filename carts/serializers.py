@@ -33,17 +33,17 @@ class CartProductsSerializer(serializers.ModelSerializer):
     ):
         if request_quantity <= 0:
             raise serializers.ValidationError(
-                {"detail": "A quantidade solicitada deve ser maior que 0"}
+                {"detail": "Ordered quantity must be greater than 0"}
             )
         if request_quantity > stock_quantity:
             raise serializers.ValidationError(
-                {"detail": "A quantidade solicitada não está disponível em estoque"}
+                {"detail": "Ordered quantity is out of stock."}
             )
         if cart_quantity:
             if cart_quantity + request_quantity > stock_quantity:
                 raise serializers.ValidationError(
                     {
-                        "detail": "A quantidade solicitada somada à quantidade em seu carrinho não está disponível em estoque"
+                        "detail": "Ordered quantity plus the quantity in your cart is out of stock"
                     }
                 )
 
