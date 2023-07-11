@@ -30,7 +30,10 @@ class RequestSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         cart = Cart.objects.filter(user_id=validated_data["buyer"].id).first()
         carts_products = CartProducts.objects.filter(cart=cart)
-
+        if not carts_products:
+            raise serializers.ValidationError({
+                "detail": "There are no products in your shopping cart"
+            })
         seller_orders = {}
 
         for item in carts_products:
@@ -39,6 +42,8 @@ class RequestSerializer(serializers.ModelSerializer):
                 seller_orders[seller_id].append(item)
             else:
                 seller_orders[seller_id] = [item]
+
+        carts_products.delete()
 
         for seller_id, products in seller_orders.items():
             request = Request.objects.create(**validated_data, seller=seller_id)
@@ -53,14 +58,18 @@ class RequestSerializer(serializers.ModelSerializer):
         return request
 
     def update(self, instance, validated_data):
-        instance.status = "concluido"
+        instance.status = validated_data.get('status', instance.status)
         instance.save()
+        info_order = ""
+        if instance.status == "concluido":
+            info_order = "foi concluído com sucesso"
+        elif instance.status == "em andamento":
+            info_order = "está em andamento"
         send_mail(
             subject="Atualização do pedido",
-            message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{instance.id} foi concluído com sucesso.",
+            message=f"Olá, {instance.buyer.full_name}! Seu pedido, nº{instance.id} {info_order}.",
             recipient_list=[instance.buyer.email],
             from_email=settings.EMAIL_HOST_USER,
             fail_silently=False,
         )
-
         return instance
