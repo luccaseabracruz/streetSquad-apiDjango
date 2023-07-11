@@ -22,7 +22,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         related_name="products"
     )
-    image_url = models.URLField(null=True, default=None)
+    image_url = models.URLField(null=True, default='https://uploaddeimagens.com.br/imagens/zrwGMsE')
 
     def __repr__(self) -> str:
         return f"<Product ({self.id})-({self.name})>"
