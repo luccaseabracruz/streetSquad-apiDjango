@@ -10,7 +10,7 @@ class Command(BaseCommand):
         admin_data = {
             "username": "admin",
             "email": "admin@mail.com",
-            "password": "1234"
+            "password": "Admin1234!@"
         }
 
         User.objects.create_superuser(**admin_data)
