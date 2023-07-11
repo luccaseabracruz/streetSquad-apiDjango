@@ -30,7 +30,10 @@ class RequestSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         cart = Cart.objects.filter(user_id=validated_data["buyer"].id).first()
         carts_products = CartProducts.objects.filter(cart=cart)
-
+        if not carts_products:
+            raise serializers.ValidationError({
+                "detail": "There are no products in your shopping cart"
+            })
         seller_orders = {}
 
         for item in carts_products:
@@ -39,6 +42,8 @@ class RequestSerializer(serializers.ModelSerializer):
                 seller_orders[seller_id].append(item)
             else:
                 seller_orders[seller_id] = [item]
+
+        carts_products.delete()
 
         for seller_id, products in seller_orders.items():
             request = Request.objects.create(**validated_data, seller=seller_id)

@@ -31,4 +31,11 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+        self.verify_stock(validated_data['stock_quantity'])
         return Product.objects.create(**validated_data)
+
+    def verify_stock(self, stock_quantity):
+        if stock_quantity <= 0 or stock_quantity >= 10000:
+            raise serializers.ValidationError(
+                {"detail": "It is not possible to register this quantity"}
+            )
