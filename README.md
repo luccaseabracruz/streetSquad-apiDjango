@@ -105,22 +105,6 @@ Por fim, abordamos o aspecto dos usuários, com a possibilidade de cadastro de d
 
 Em suma, a API desenvolvida para essa plataforma de e-commerce proporciona uma base sólida para a construção de um ambiente dinâmico e funcional. Ela atende às necessidades dos usuários, oferecendo recursos abrangentes para gestão de produtos, carrinho de compras, pedidos e usuários, além de garantir uma experiência segura e eficiente. Estamos confiantes de que essa API é uma solução robusta para impulsionar o sucesso do seu negócio de e-commerce.
 
-## AGRADECIMETOS
-
-Gostaríamos de expressar nossa profunda gratidão à Kenzie  Academy Brasil, seus instrutores e monitores, por sua valiosa contribuição e suporte durante o desenvolvimento deste projeto.
-
-Em primeiro lugar, gostaríamos de agradecer à Kenzie  Academy Brasil por fornecer uma plataforma excepcional de aprendizado e nos equipar com as habilidades necessárias para enfrentar desafios complexos, como a criação desta API para uma plataforma de e-commerce. A qualidade do ensino e o ambiente de aprendizado estimulante foram fundamentais para o nosso sucesso.
-
-Também queremos expressar nosso sincero agradecimento aos instrutores Lucira Silva, Alexandre Alves e Pedro Hasler. Sua expertise, orientação e dedicação foram fundamentais ao longo do projeto. Suas habilidades técnicas, vontade de compartilhar conhecimento e capacidade de motivar e inspirar os alunos foram inestimáveis. Somos imensamente gratos pela oportunidade de aprender com profissionais tão talentosos e experientes.
-
-Não podemos deixar de mencionar o corpo de monitores do módulo M5, cujo suporte e assistência foram inestimáveis. Suas orientações, esclarecimento de dúvidas e feedback foram cruciais para o nosso progresso e aprimoramento contínuo. Agradecemos por sua disponibilidade e paciência em nos ajudar a superar os desafios encontrados ao longo do projeto.
-
-Estamos extremamente felizes em concluir este projeto e celebrar os resultados alcançados. Trabalhar juntos como um grupo coeso e dedicado nos trouxe uma grande satisfação e senso de realização. Estamos orgulhosos do nosso trabalho e das conquistas que alcançamos ao criar uma API funcional e robusta para suportar uma plataforma de e-commerce.
-
-Mais uma vez, gostaríamos de agradecer à Kenzie  Academy Brasil, aos instrutores Lucira Silva, Alexandre Alves e Pedro Hasler, e ao corpo de monitores do módulo M5. Sua orientação, apoio e comprometimento foram fundamentais para o sucesso deste projeto. Estamos ansiosos para aplicar os conhecimentos adquiridos e continuar crescendo como profissionais na área de desenvolvimento de software.
-
-Atenciosamente, EQUIPE G28 : ANDRE LUIZ CAVALCANTE, JOSÉ GABRIEL, LUCCA CRUZ E WELLINGTON EUGENIO
-
 # EQUIPE DESENVOLVEDORA
 
 ## ANDRÉ LUIZ CAVALCANTE
@@ -147,3 +131,18 @@ Atenciosamente, EQUIPE G28 : ANDRE LUIZ CAVALCANTE, JOSÉ GABRIEL, LUCCA CRUZ E 
 1. [Linkedin](https://www.linkedin.com/in/wellington-depaula/)
 2. [Git-hub](https://github.com/wellinton-eugenio)
 
+## AGRADECIMETOS
+
+Gostaríamos de expressar nossa profunda gratidão à Kenzie  Academy Brasil, seus instrutores e monitores, por sua valiosa contribuição e suporte durante o desenvolvimento deste projeto.
+
+Em primeiro lugar, gostaríamos de agradecer à Kenzie  Academy Brasil por fornecer uma plataforma excepcional de aprendizado e nos equipar com as habilidades necessárias para enfrentar desafios complexos, como a criação desta API para uma plataforma de e-commerce. A qualidade do ensino e o ambiente de aprendizado estimulante foram fundamentais para o nosso sucesso.
+
+Também queremos expressar nosso sincero agradecimento aos instrutores Lucira Silva, Alexandre Alves e Pedro Hasler. Sua expertise, orientação e dedicação foram fundamentais ao longo do projeto. Suas habilidades técnicas, vontade de compartilhar conhecimento e capacidade de motivar e inspirar os alunos foram inestimáveis. Somos imensamente gratos pela oportunidade de aprender com profissionais tão talentosos e experientes.
+
+Não podemos deixar de mencionar o corpo de monitores do módulo M5, cujo suporte e assistência foram inestimáveis. Suas orientações, esclarecimento de dúvidas e feedback foram cruciais para o nosso progresso e aprimoramento contínuo. Agradecemos por sua disponibilidade e paciência em nos ajudar a superar os desafios encontrados ao longo do projeto.
+
+Estamos extremamente felizes em concluir este projeto e celebrar os resultados alcançados. Trabalhar juntos como um grupo coeso e dedicado nos trouxe uma grande satisfação e senso de realização. Estamos orgulhosos do nosso trabalho e das conquistas que alcançamos ao criar uma API funcional e robusta para suportar uma plataforma de e-commerce.
+
+Mais uma vez, gostaríamos de agradecer à Kenzie  Academy Brasil, aos instrutores Lucira Silva, Alexandre Alves e Pedro Hasler, e ao corpo de monitores do módulo M5. Sua orientação, apoio e comprometimento foram fundamentais para o sucesso deste projeto. Estamos ansiosos para aplicar os conhecimentos adquiridos e continuar crescendo como profissionais na área de desenvolvimento de software.
+
+Atenciosamente, EQUIPE G28 : ANDRE LUIZ CAVALCANTE, JOSÉ GABRIEL, LUCCA CRUZ E WELLINGTON EUGENIO
