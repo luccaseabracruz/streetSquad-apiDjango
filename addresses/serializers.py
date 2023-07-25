@@ -7,6 +7,7 @@ from .exceptions import VerifyAddress
 class AddressSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
+    
     class Meta:
         model = Address
         fields = [
